@@ -7,6 +7,9 @@ variables.terminal = "alacritty"
 variables.editor = os.getenv("EDITOR") or "nano"
 variables.editor_cmd = variables.terminal .. " -e " .. variables.editor
 variables.modkey = "Mod4"
+variables.browser = "chromium"
+variables.file_manager = "thunar"
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 variables.layouts = {
     awful.layout.suit.fair,
@@ -35,6 +38,9 @@ function variables:get(name)
     if not initiated then
         variables.terminal = "alacritty"
         variables.editor_cmd = variables.terminal .. " -e " .. variables.editor
+        variables.modkey = "Mod4"
+        variables.browser = "chromium"
+        variables.file_manager = "thunar"
         -- layouts
         variables.layouts = variables.layouts   -- after checking if the variable is not used anywhere else remove this line
         awful.layout.layouts = variables.layouts

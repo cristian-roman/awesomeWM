@@ -8,8 +8,6 @@ require("awful.hotkeys_popup.keys")
 
 -- Variables
 local vars = require("global_variables")
-local terminal = vars:get("terminal")
-local editor_cmd = vars:get("editor_cmd")
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it
@@ -17,8 +15,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 submenu = {
     { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    { "manual", terminal .. " -e man awesome" },
-    { "edit config", editor_cmd .. " " .. awesome.conffile },
     { "restart", awesome.restart },
     { "quit", function() awesome.quit() end },
  }

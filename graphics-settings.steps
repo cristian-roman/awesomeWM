@@ -44,3 +44,7 @@ sudo pacman -S polkit
 sudo pacman -S mate-polkit
 
 .xprofile -> /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 &
+
+albert -> spotlight
+polybar -> wibar (bara cu optiuni)
+picom -> composite

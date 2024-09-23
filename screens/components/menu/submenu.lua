@@ -14,9 +14,9 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- }}}
 
 submenu = {
-    { "hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
-    { "restart", awesome.restart },
-    { "quit", function() awesome.quit() end },
+    { "󰌏  Hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end },
+    { "󰑓  Restart", awesome.restart },
+    { "  Quit", function() awesome.quit() end },
  }
 
  return submenu

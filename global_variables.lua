@@ -12,9 +12,9 @@ variables.file_manager = "thunar"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 variables.layouts = {
-    awful.layout.suit.fair,
     awful.layout.suit.tile.left,
     awful.layout.suit.tile,
+    awful.layout.suit.fair,
     awful.layout.suit.magnifier,
     awful.layout.suit.max,
     awful.layout.suit.floating

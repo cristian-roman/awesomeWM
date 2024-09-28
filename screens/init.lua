@@ -41,34 +41,72 @@ local function init()
         s.mytaglist = awful.widget.taglist {
             screen  = s,
             filter  = awful.widget.taglist.filter.all,
-            buttons = workspaces_controls
+            buttons = workspaces_controls,
         }
     
         -- Create a tasklist widget
         s.mytasklist = awful.widget.tasklist {
             screen  = s,
             filter  = awful.widget.tasklist.filter.currenttags,
-            buttons = clients_controls
+            buttons = clients_controls,
+            bg = "#10203b",
+            style = {
+                shape = gears.shape.rounded_rect,
+            },
+            layout   = {
+                spacing = 10,
+                layout  = wibox.layout.fixed.horizontal
+            },
+            widget_template = {
+                {
+                    {
+                        {
+                            id = 'icon_role',
+                            widget = wibox.widget.imagebox,
+                        },
+                        layout = wibox.layout.align.horizontal,
+                        forced_width = 30,
+                    },
+                    left = 10,
+                    right = 10,
+                    widget = wibox.container.margin,
+                },
+                id = 'background_role',
+                widget = wibox.container.background,
+               
+            },
         }
     
         -- Create the wibox
-        s.mywibox = awful.wibar({ position = "top", screen = s })
+        s.mywibox = awful.wibar({ 
+            position = "top",
+            height = 30, 
+            border_width = 5,
+            border_color = "#1e2c42",
+            bg = "#10203b",
+            screen = s })
     
         -- Add widgets to the wibox
         s.mywibox:setup {
             layout = wibox.layout.align.horizontal,
-            { -- Left widgets
+            { 
+                -- Left widgets
                 layout = wibox.layout.fixed.horizontal,
                 mylauncher,
                 s.mytaglist,
-                s.mypromptbox,
+                s.mytasklist, 
             },
-            s.mytasklist, -- Middle widget
-            { -- Right widgets
+            {
+                -- Middle widget
+                layout = wibox.layout.flex.horizontal,
+                wibox.widget.systray(),
+                mytextclock
+                
+            },
+            {   
+                -- Right widgets
                 layout = wibox.layout.fixed.horizontal,
                 mykeyboardlayout,
-                wibox.widget.systray(),
-                mytextclock,
                 s.mylayoutbox,
             },
         }

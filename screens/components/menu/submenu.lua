@@ -7,7 +7,7 @@ local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys") 
 
 -- Variables
-local vars = require("global_variables")
+local vars = require("variables")
 
 -- Menubar configuration
 menubar.utils.terminal = terminal -- Set the terminal for applications that require it

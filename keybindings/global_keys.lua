@@ -6,7 +6,7 @@ local awful = require("awful")
 local hotkeys_popup = require("awful.hotkeys_popup")
 
 --global vars
-local vars = require("global_variables")
+local vars = require("variables")
 local modkey = vars:get("modkey")
 local terminal = vars:get("terminal")
 local menubar = require("menubar")

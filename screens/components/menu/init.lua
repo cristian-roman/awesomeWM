@@ -6,7 +6,7 @@ local awful = require("awful")
 require("screens.components.menu.style")
 
 -- global variables
-local vars = require("global_variables")
+local vars = require("variables")
 
 -- Subcomponents
 local submenu = require("screens.components.menu.submenu")

@@ -1,7 +1,7 @@
 local gears = require("gears") 
 local awful = require("awful") 
 
-local clients_controls = gears.table.join(
+local controls = gears.table.join(
                      awful.button({ }, 1, function (c)
                                               if c == client.focus then
                                                   c.minimized = true
@@ -23,4 +23,4 @@ local clients_controls = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-return clients_controls
+return controls

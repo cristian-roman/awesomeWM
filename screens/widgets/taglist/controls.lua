@@ -1,12 +1,12 @@
 local gears = require("gears") 
 local awful = require("awful") 
 
-local vars = require("global_variables")
+local vars = require("variables")
 local modkey = vars:get("modkey")
 
 
 -- Create a wibox for each screen and add it
-local workspaces_controls = gears.table.join(
+local controls = gears.table.join(
                     awful.button({ }, 1, function(t) t:view_only() end),
                     awful.button({ modkey }, 1, function(t)
                                               if client.focus then
@@ -23,4 +23,4 @@ local workspaces_controls = gears.table.join(
                     awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
                 )
 
-return workspaces_controls
+return controls

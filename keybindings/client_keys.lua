@@ -1,7 +1,7 @@
 local gears = require("gears")
 local awful = require("awful")
 
-local vars = require("global_variables")
+local vars = require("variables")
 local modkey = vars:get("modkey")
 
 local clientkeys = gears.table.join(

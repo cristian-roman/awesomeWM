@@ -94,13 +94,14 @@ local function init()
                 layout = wibox.layout.fixed.horizontal,
                 mylauncher,
                 s.mytaglist,
-                s.mytasklist, 
+                s.mytasklist,
+                forced_width = 600,
             },
             {
                 -- Middle widget
                 layout = wibox.layout.flex.horizontal,
                 wibox.widget.systray(),
-                mytextclock
+                mytextclock,
                 
             },
             {   

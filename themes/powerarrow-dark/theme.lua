@@ -114,13 +114,13 @@ theme.cal = lain.widget.cal({
 
 -- Mail IMAP check
 local mailicon = wibox.widget.imagebox(theme.widget_mail)
---[[ commented because it needs to be set before use
+mail = "thunderbird"
 mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
 theme.mail = lain.widget.imap({
     timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
+    server   = "imap.mail.yahoo.com",
+    mail     = "romancristianroman@yahoo.com",
+    password = awful.util.pread("secret-tool lookup mail romancristianroman@yahoo.com"),
     settings = function()
         if mailcount > 0 then
             widget:set_markup(markup.font(theme.font, " " .. mailcount .. " "))
@@ -131,7 +131,6 @@ theme.mail = lain.widget.imap({
         end
     end
 })
---]]
 
 -- MPD
 local variables = require("variables")
@@ -196,14 +195,12 @@ local temp = lain.widget.temp({
 
 -- / fs
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
---[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
     notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
     settings = function()
         widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
     end
 })
---]]
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
@@ -255,15 +252,47 @@ theme.volume.widget:buttons(awful.util.table.join(
                                end)
 ))
 
--- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
+
+-- Create the network widget using lain
 local net = lain.widget.net({
     settings = function()
         widget:set_markup(markup.font(theme.font,
-                          markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
-                          .. " " ..
-                          markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")))
+            markup("#7AC82E", " " .. string.format("%06.1f", net_now.received))
+            .. " " ..
+            markup("#46A8C3", " " .. string.format("%06.1f", net_now.sent) .. " ")
+        ))
     end
+})
+
+-- Create a clickable container for the network icon
+local neticon_container = wibox.container.background(neticon, theme.bg_focus)
+neticon_container:buttons(awful.util.table.join(
+    awful.button({}, 1, function()  -- Left mouse button click
+        awful.spawn("nm-connection-editor")  -- Replace with your desired GUI command
+    end)
+))
+
+-- Create a clickable container for the network widget
+local net_container = wibox.container.background(net.widget, theme.bg_focus)
+net_container:buttons(awful.util.table.join(
+    awful.button({}, 1, function()  -- Left mouse button click
+        awful.spawn("nm-connection-editor")  -- Replace with your desired GUI command
+    end)
+))
+
+-- Create a horizontal layout to hold both containers
+local net_widget = wibox.layout.fixed.horizontal()
+net_widget:add(neticon_container)
+net_widget:add(net_container)
+
+-- Optionally, set up a tooltip for the network widget
+local net_tooltip = awful.tooltip({
+    objects = { net_widget },
+    timer_function = function()
+        return "Click to manage network connections"  -- Tooltip text
+    end,
+    delay = 0.5,
 })
 
 -- Separators
@@ -303,7 +332,7 @@ function theme.at_screen_connect(s)
     s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons)
 
     -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
+    s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(30), bg = theme.bg_normal, fg = theme.fg_normal })
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -329,7 +358,7 @@ function theme.at_screen_connect(s)
             theme.volume.widget,
             arrl_ld,
             wibox.container.background(mailicon, theme.bg_focus),
-            --wibox.container.background(theme.mail.widget, theme.bg_focus),
+            wibox.container.background(theme.mail.widget, theme.bg_focus),
             arrl_dl,
             memicon,
             mem.widget,
@@ -341,13 +370,12 @@ function theme.at_screen_connect(s)
             temp.widget,
             arrl_ld,
             wibox.container.background(fsicon, theme.bg_focus),
-            --wibox.container.background(theme.fs.widget, theme.bg_focus),
+            wibox.container.background(theme.fs.widget, theme.bg_focus),
             arrl_dl,
             baticon,
             bat.widget,
             arrl_ld,
-            wibox.container.background(neticon, theme.bg_focus),
-            wibox.container.background(net.widget, theme.bg_focus),
+            net_widget,
             arrl_dl,
             clock,
             spr,

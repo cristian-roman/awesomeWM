@@ -12,9 +12,7 @@ local gears = require("gears")
 local wibox = require("wibox")
 
 
--- {{{ Variable definitions}}}
-local vars = require("variables")
-awful.layout.layouts = vars:get("layouts")
+
 
 -- {{{ Key bindings
 globalkeys = require("keybindings.global_keys")

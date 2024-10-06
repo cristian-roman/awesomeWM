@@ -1,6 +1,10 @@
 local awful = require("awful")
 local gears = require("gears")
 
+local variables = require("variables")
+
+awful.layout.layouts = variables:get("layouts")
+
 local function init(s)
     local layoutbox = awful.widget.layoutbox(s)
 

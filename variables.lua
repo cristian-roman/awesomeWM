@@ -49,4 +49,6 @@ function variables:get(name)
     return variables[name]
 end
 
+awful.layout.layouts = variables:get("layouts")
+
 return variables

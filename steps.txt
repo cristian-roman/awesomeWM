@@ -48,3 +48,5 @@ sudo pacman -S mate-polkit
 albert -> spotlight
 polybar -> wibar (bara cu optiuni)
 picom -> composite
+
+arandr -> gui for xrandr

@@ -1,6 +1,6 @@
 local awful = require("awful")
 local beautiful = require("beautiful")
-local keyboard_client_keys = require("client_keys.keyboard_client_keys")
+local keyboard_client_keys = require("keybindings.clients.client_keys")
 local mousebindings = require("mousebindings.clients_bindings")
 
 awful.rules.rules = {

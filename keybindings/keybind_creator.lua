@@ -8,7 +8,6 @@ local function create_keybind(primary_key, second_key, action, description, grou
     else
         return awful.key(
             {modkey, second_key}, primary_key, action, {description = description, group = group})
-        )
     end
 end
 

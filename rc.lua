@@ -6,7 +6,7 @@ require("init.layouts")
 
 require("init.theme")
 
-require("workspace_keys.keyboard_workspace_keys")
+require("keybindings")
 require("mousebindings.tags_bindings")
 
 require("init.monitors_setup")

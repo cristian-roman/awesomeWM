@@ -52,5 +52,5 @@ awful.rules.rules =
     
     properties = { floating = true }
   
-  },  
+  }
 }

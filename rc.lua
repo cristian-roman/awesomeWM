@@ -5,6 +5,7 @@ require("init.async_errors_handler")
 require("init.layouts")
 
 require("init.theme")
+require("init.mainmenu")
 
 require("keybindings")
 require("mousebindings.tags_bindings")

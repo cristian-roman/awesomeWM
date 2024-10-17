@@ -117,7 +117,7 @@ theme.cal = lain.widget.cal({
     notification_preset = {
         fg = "#FFFFFF",
         bg = theme.bg_normal,
-        position = "top_left",
+        position = "top_right",
         font = "Monospace 10"
     }
 })
@@ -315,28 +315,18 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             first,
-            spr_bottom_right,
-            netdown_icon,
-            networkwidget,
-            netup_icon,
-            bottom_bar,
-            cpu_icon,
-            cpuwidget,
-            bottom_bar,
-            batterywidget,
-            spr_small,
+            wibox.widget.systray(),
         },
         s.mytag,
         { 
             layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            spr_right,
-            bar,
-            mpd_icon,
-            bar,
-            spr_very_small,
-            volumewidget,
-            spr_left,
+            spr_bottom_right,
+            calendar_icon,
+            calendarwidget,
+            bottom_bar,
+            clock_icon,
+            clockwidget,
+            s.mypromptbox
         },
     }
 
@@ -354,13 +344,20 @@ function theme.at_screen_connect(s)
         s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            spr_bottom_right,
-            calendar_icon,
-            calendarwidget,
+            volumewidget,
+            mpd_icon,
+            spr_left,
             bottom_bar,
-            clock_icon,
-            clockwidget,
-            s.mypromptbox,
+            netdown_icon,
+            networkwidget,
+            netup_icon,
+            bottom_bar,
+            cpu_icon,
+            cpuwidget,
+            bottom_bar,
+            batterywidget,
+            bottom_bar,
+            spr_left
         },
     }
 end

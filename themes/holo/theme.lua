@@ -306,8 +306,6 @@ function theme.at_screen_connect(s)
             first,
             s.mytag,
             spr_small,
-            -- s.mylayoutbox,
-            spr_small,
             s.mypromptbox,
         },
         nil,

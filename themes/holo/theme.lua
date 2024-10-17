@@ -19,7 +19,7 @@ theme.default_dir                               = require("awful.util").get_them
 theme.icon_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/holo/icons"
 theme.wallpaper                                 = os.getenv("HOME") .. "/.config/awesome/themes/holo/wall.png"
 theme.font                                      = "Roboto Bold 10"
-theme.taglist_font                              = "Roboto Condensed Regular 8"
+theme.taglist_font                              = "Roboto Condensed Regular 12"
 theme.fg_normal                                 = "#FFFFFF"
 theme.fg_focus                                  = "#0099CC"
 theme.bg_focus                                  = "#303030"
@@ -122,28 +122,6 @@ theme.cal = lain.widget.cal({
     }
 })
 
--- Mail IMAP check
---[[ to be set before use
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        mail_notification_preset.fg = "#FFFFFF"
-        mail  = ""
-        count = ""
-
-        if mailcount > 0 then
-            mail = "Mail "
-            count = mailcount .. " "
-        end
-
-        widget:set_markup(markup.font(theme.font, markup(blue, mail) .. markup("#FFFFFF", count)))
-    end
-})
---]]
-
 -- MPD
 local mpd_icon = awful.widget.launcher({ image = theme.mpdl, command = theme.musicplr })
 local prev_icon = wibox.widget.imagebox(theme.prev)
@@ -151,22 +129,27 @@ local next_icon = wibox.widget.imagebox(theme.nex)
 local stop_icon = wibox.widget.imagebox(theme.stop)
 local pause_icon = wibox.widget.imagebox(theme.pause)
 local play_pause_icon = wibox.widget.imagebox(theme.play)
+
 theme.mpd = lain.widget.mpd({
     settings = function ()
         if mpd_now.state == "play" then
             mpd_now.artist = mpd_now.artist:upper():gsub("&.-;", string.lower)
             mpd_now.title = mpd_now.title:upper():gsub("&.-;", string.lower)
+            
             widget:set_markup(markup.font("Roboto 4", " ")
                               .. markup.font(theme.taglist_font,
                               " " .. mpd_now.artist
                               .. " - " ..
                               mpd_now.title .. "  ") .. markup.font("Roboto 5", " "))
-            play_pause_icon:set_image(theme.pause)
-        elseif mpd_now.state == "pause" then
+            
+                              play_pause_icon:set_image(theme.pause)
+        
+        elseif mpd_now.state == "pause" then    
             widget:set_markup(markup.font("Roboto 4", " ") ..
                               markup.font(theme.taglist_font, " MPD PAUSED  ") ..
                               markup.font("Roboto 5", " "))
             play_pause_icon:set_image(theme.play)
+    
         else
             widget:set_markup("")
             play_pause_icon:set_image(theme.play)
@@ -176,29 +159,11 @@ theme.mpd = lain.widget.mpd({
 local musicbg = wibox.container.background(theme.mpd.widget, theme.bg_focus, gears.shape.rectangle)
 local musicwidget = wibox.container.margin(musicbg, dpi(0), dpi(0), dpi(5), dpi(5))
 
-musicwidget:buttons(my_table.join(awful.button({ }, 1,
-function () awful.spawn(theme.musicplr) end)))
-prev_icon:buttons(my_table.join(awful.button({}, 1,
-function ()
-    os.execute("mpc prev")
-    theme.mpd.update()
-end)))
-next_icon:buttons(my_table.join(awful.button({}, 1,
-function ()
-    os.execute("mpc next")
-    theme.mpd.update()
-end)))
-stop_icon:buttons(my_table.join(awful.button({}, 1,
-function ()
-    play_pause_icon:set_image(theme.play)
-    os.execute("mpc stop")
-    theme.mpd.update()
-end)))
-play_pause_icon:buttons(my_table.join(awful.button({}, 1,
-function ()
-    os.execute("mpc toggle")
-    theme.mpd.update()
-end)))
+musicwidget:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(theme.musicplr) end)))
+prev_icon:buttons(my_table.join(awful.button({}, 1, function () os.execute("mpc prev"); theme.mpd.update() end)))
+next_icon:buttons(my_table.join(awful.button({}, 1, function () os.execute("mpc next"); theme.mpd.update() end)))
+stop_icon:buttons(my_table.join(awful.button({}, 1, function () play_pause_icon:set_image(theme.play); os.execute("mpc stop"); theme.mpd.update() end)))
+play_pause_icon:buttons(my_table.join(awful.button({}, 1, function () os.execute("mpc toggle"); theme.mpd.update() end)))
 
 -- Battery
 local bat = lain.widget.bat({
@@ -229,11 +194,19 @@ theme.volume = lain.widget.alsabar({
         unmute     = "#80CCE6",
         mute       = "#FF9F9F"
     },
+
+    timeout = 1
 })
 theme.volume.bar.paddings = dpi(0)
 theme.volume.bar.margins = dpi(5)
 local volumewidget = wibox.container.background(theme.volume.bar, theme.bg_focus, gears.shape.rectangle)
 volumewidget = wibox.container.margin(volumewidget, dpi(0), dpi(0), dpi(5), dpi(5))
+
+volumewidget:buttons(my_table.join(
+    awful.button({}, 4, function() os.execute("amixer -q set Master 2%+ unmute"); theme.volume.update() end),
+    awful.button({}, 5, function() os.execute("amixer -q set Master 2%- unmute"); theme.volume.update() end),
+    awful.button({}, 1, function() os.execute("amixer -q set Master toggle"); theme.volume.update() end)
+))
 
 -- CPU
 local cpu_icon = wibox.widget.imagebox(theme.cpu)
@@ -333,16 +306,14 @@ function theme.at_screen_connect(s)
             first,
             s.mytag,
             spr_small,
-            s.mylayoutbox,
+            -- s.mylayoutbox,
             spr_small,
             s.mypromptbox,
         },
-        nil, -- Middle widget
+        nil,
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            --theme.mail.widget,
-            --bat.widget,
             spr_right,
             musicwidget,
             bar,
@@ -356,6 +327,7 @@ function theme.at_screen_connect(s)
             spr_very_small,
             volumewidget,
             spr_left,
+            bat.widget,
         },
     }
 

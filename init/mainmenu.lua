@@ -16,7 +16,7 @@ awful.util.mymainmenu = awful.menu({
                     -- { "󰋗  hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end }
                 },
         theme = {
-            font = "FiraCode 12",
+            font = "RobotoMono Nerd Font 12",
             height = 20,
             width = 200,
             bg_normal = beautiful.bg_normal,

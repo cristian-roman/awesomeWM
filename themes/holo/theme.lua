@@ -117,7 +117,7 @@ theme.cal = lain.widget.cal({
     notification_preset = {
         fg = "#FFFFFF",
         bg = theme.bg_normal,
-        position = "bottom_right",
+        position = "top_left",
         font = "Monospace 10"
     }
 })
@@ -177,6 +177,9 @@ local bat = lain.widget.bat({
     end
 })
 
+-- Set the background of the battery widget
+local batbg = wibox.container.background(bat.widget, theme.bg_focus, gears.shape.rectangle)
+local batterywidget = wibox.container.margin(batbg, dpi(0), dpi(0), dpi(5), dpi(5))
 -- / fs
 --[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
@@ -287,13 +290,21 @@ function theme.at_screen_connect(s)
                            awful.button({}, 4, function () awful.layout.inc( 1) end),
                            awful.button({}, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, { bg_focus = barcolor })
+    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons, 
+        { 
+            bg_focus = blue, 
+            shape = function(cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, 8) 
+            end,
+            layout = wibox.layout.fixed.horizontal,
+            spacing = dpi(4)
+        })
 
-    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
+    mytaglistcont = wibox.container.place(s.mytaglist, 'center', 'center')
     s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(0), dpi(5), dpi(5))
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = gears.shape.rectangle, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
+    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, awful.util.tasklist_buttons, { bg_focus = theme.bg_focus, shape = function(cr, width, height) gears.shape.rounded_rect(cr, width, height, 8) end, shape_border_width = 5, shape_border_color = theme.tasklist_bg_normal, align = "center" })
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
@@ -304,28 +315,28 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             first,
-            s.mytag,
+            spr_bottom_right,
+            netdown_icon,
+            networkwidget,
+            netup_icon,
+            bottom_bar,
+            cpu_icon,
+            cpuwidget,
+            bottom_bar,
+            batterywidget,
             spr_small,
-            s.mypromptbox,
         },
-        nil,
-        { -- Right widgets
+        s.mytag,
+        { 
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             spr_right,
-            musicwidget,
-            bar,
-            prev_icon,
-            next_icon,
-            stop_icon,
-            play_pause_icon,
             bar,
             mpd_icon,
             bar,
             spr_very_small,
             volumewidget,
             spr_left,
-            bat.widget,
         },
     }
 
@@ -344,18 +355,12 @@ function theme.at_screen_connect(s)
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             spr_bottom_right,
-            netdown_icon,
-            networkwidget,
-            netup_icon,
-            bottom_bar,
-            cpu_icon,
-            cpuwidget,
-            bottom_bar,
             calendar_icon,
             calendarwidget,
             bottom_bar,
             clock_icon,
             clockwidget,
+            s.mypromptbox,
         },
     }
 end

@@ -300,7 +300,7 @@ function theme.at_screen_connect(s)
             spacing = dpi(4)
         })
 
-    mytaglistcont = wibox.container.place(s.mytaglist, 'center', 'center')
+    mytaglistcont = wibox.container.background(s.mytaglist, theme.bg_focus, gears.shape.rectangle)
     s.mytag = wibox.container.margin(mytaglistcont, dpi(0), dpi(0), dpi(5), dpi(5))
 
     -- Create a tasklist widget
@@ -308,6 +308,17 @@ function theme.at_screen_connect(s)
 
     -- Create the wibox
     s.mywibox = awful.wibar({ position = "top", screen = s, height = dpi(32) })
+    
+    -- Corrected centered_date widget
+    local centered_layout = wibox.layout.fixed.horizontal()
+    centered_layout:add(spr_bottom_right)
+    centered_layout:add(calendar_icon)
+    centered_layout:add(calendarwidget)
+    centered_layout:add(bottom_bar)
+    centered_layout:add(clock_icon)
+    centered_layout:add(clockwidget)
+
+    s.centered_date = wibox.container.place(centered_layout, 'center', 'center')
 
     -- Add widgets to the wibox
     s.mywibox:setup {
@@ -315,20 +326,19 @@ function theme.at_screen_connect(s)
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
             first,
-            wibox.widget.systray(),
+            s.mytag,
         },
-        s.mytag,
-        { 
+        {
+            layout = wibox.layout.flex.horizontal,
+            s.centered_date,
+        },
+        { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
-            spr_bottom_right,
-            calendar_icon,
-            calendarwidget,
-            bottom_bar,
-            clock_icon,
-            clockwidget,
-            s.mypromptbox
+            wibox.widget.systray(),
+            s.mypromptbox,
         },
     }
+    
 
     -- Create the bottom wibox
     s.mybottomwibox = awful.wibar({ position = "bottom", screen = s, border_width = dpi(0), height = dpi(32) })

@@ -50,3 +50,5 @@ polybar -> wibar (bara cu optiuni)
 picom -> composite
 
 arandr -> gui for xrandr
+
+lain -> awesomewm

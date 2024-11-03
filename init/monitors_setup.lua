@@ -11,10 +11,3 @@ awful.screen.connect_for_each_screen(
 )
 
 screen.connect_signal("request::wallpaper", wallpaper_set_function)
-
-client.connect_signal("manage", function(c)
-    -- Set the rounded shape for the client
-    c.shape = function(cr, width, height)
-        return gears.shape.rounded_rect(cr, width, height, 8) -- Make it rounded
-    end
-end)

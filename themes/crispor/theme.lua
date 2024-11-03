@@ -12,10 +12,13 @@ local attach_top_wibar = require("themes.crispor.wibars.top_wibar")
 
 theme.useless_gap = dpi(4)
 
+theme.blue_0 = "#011a28"
 theme.blue_1 = "#022c42"
 theme.blue_2 = "#4D6F80"
 theme.blue_8 = "#a3c4cf"
 theme.blue_16 = "#0099CC"
+
+theme.pink_8 = "#f2d4d7"
 
 set_border_theme(theme)
 
@@ -31,6 +34,6 @@ function theme.at_screen_connect(s)
     attach_top_wibar(s, theme)
 end
 
-theme.font = "FiraMono Nerd Font Bold 10"
+theme.font = "FiraMono Nerd Font Bold 12"
 
 return theme

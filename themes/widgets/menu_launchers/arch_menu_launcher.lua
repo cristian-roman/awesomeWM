@@ -27,8 +27,9 @@ local function get_arch_menu_launcher(theme)
             widget = wibox.container.background
         },
         -- Add a margin with theme.useless_gap to create distance from the top
-        top = theme.useless_gap * 2,
         right = theme.useless_gap * 2.75,
+        top = theme.useless_gap * 1.5,
+        bottom = theme.useless_gap * 1.5,
         widget = wibox.container.margin
     }
 

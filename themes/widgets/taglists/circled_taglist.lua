@@ -4,6 +4,7 @@ local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
 local dpi = beautiful.xresources.apply_dpi
+local naughty = require("naughty")
 
 -- Function to create the taglist widget
 local function create_taglist(s, theme)
@@ -13,34 +14,36 @@ local function create_taglist(s, theme)
         filter  = awful.widget.taglist.filter.all,
         buttons = awful.util.taglist_buttons,
         layout  = {
-            spacing = 20,
+            spacing = dpi(20),
             layout  = wibox.layout.fixed.horizontal,
         },
-        style   = {
+        style = {
             shape = gears.shape.circle,
-            bg_focus = theme.blue_8,
-            bg_urgent = "#ffccd5",
+            bg_focus = theme.blue_16,
+            bg_urgent = theme.pink_8,
         },
         widget_template = {
             {
-                widget = wibox.container.margin,
-                margins = dpi(5),
+                {
+                    id = 'text_role',
+                    forced_width = dpi(22),
+                    forced_height = dpi(22),
+                    align = "center",
+                    valign = "center",
+                    widget = wibox.widget.textbox,
+                },
+                id = 'margin_role',
+                bottom = dpi(3),
+                widget = wibox.container.margin
             },
-            id = "background_role",
+            id = 'background_role',
             widget = wibox.container.background,
-            create_callback = function(self, tag, index, objects)
-                self:connect_signal("mouse::enter", function()
-                    if self.bg ~= theme.blue_2 then
-                        self.backup     = self.bg
-                        self.has_backup = true
-                    end
-                    self.bg = theme.blue_2
-                end)
-                self:connect_signal("mouse::leave", function()
-                    if self.has_backup then self.bg = self.backup end
-                end)
+            create_callback = function(self, tag, index, tags)
+                if index == 1 then
+                    self:get_children_by_id('margin_role')[1].bottom = dpi(1)
+                end
             end,
-            update_callback = function(self, tag, index, objects)
+            update_callback = function(self, tag, index, tags)
             end,
         },
     }
@@ -49,17 +52,16 @@ local function create_taglist(s, theme)
         {
             {
                 base_taglist_widget,
-                margins = dpi(10),
+                left = dpi(15),
+                right = dpi(15),
                 widget = wibox.container.margin
             },
-        
-            bg = theme.blue_1,
+            bg = theme.blue_8,
             shape = gears.shape.rounded_bar,
             widget = wibox.container.background
         },
-
-        top = theme.useless_gap * 2,
-        left = theme.useless_gap * 2.75,
+        top = theme.useless_gap * 1.5,
+        bottom = theme.useless_gap * 1.5,
         widget = wibox.container.margin
     }
 

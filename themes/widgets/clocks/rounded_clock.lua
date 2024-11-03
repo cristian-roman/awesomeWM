@@ -49,18 +49,19 @@ local function get_clock_widget(theme)
         {
             {
                 base_clock_widget,
-                right = theme.useless_gap * 2.75,
-                left = theme.useless_gap * 2.75,
+                right = theme.useless_gap * 3,
+                left = theme.useless_gap * 3,
                 top = dpi(10),
-                bottom = dpi(10),
+                bottom = dpi(8),
                 widget = wibox.container.margin
             },
-            bg = theme.blue_1,
+            bg = theme.blue_8,
             fg = "#FFFFFF",
             shape = gears.shape.rounded_bar,
             widget = wibox.container.background
         },
-        top = theme.useless_gap * 2,
+        top = theme.useless_gap * 1.5,
+        bottom = theme.useless_gap * 1.5,
         widget = wibox.container.margin
     }
 

@@ -10,7 +10,7 @@ local function attach_top_wibar(s, theme)
     s.top_wibar = awful.wibar({
         position = "top",
         screen = s,
-        bg = theme.blue_1 .. "00",
+        bg = theme.blue_0.. "F2",
         fg = "#FFFFFF",
         height = dpi(48)
     })
@@ -19,12 +19,13 @@ local function attach_top_wibar(s, theme)
         layout = wibox.layout.align.horizontal,
         {
             layout = wibox.layout.fixed.horizontal,
-            get_taglist(s, theme),
         },
         wibox.container.place(get_clock(theme), "center"),
         {
             layout = wibox.layout.fixed.horizontal,
-            get_launcher(theme)
+            spacing = dpi(20),
+            get_taglist(s, theme),
+            get_launcher(theme),
         },
     }
 end

@@ -1,6 +1,7 @@
 local awful = require("awful")
 local gears = require("gears")
 local wibox = require("wibox")
+local dpi = require("beautiful.xresources").apply_dpi
 
 local launcher_icon_file = "arch_48.png"
 
@@ -9,7 +10,7 @@ local function get_arch_menu_launcher(theme)
 
     -- Create the launcher button
     local launcher_button = awful.widget.button({ 
-        image = launcher_icon_path
+        image = launcher_icon_path,
     })
 
     launcher_button.resize = true
@@ -17,11 +18,7 @@ local function get_arch_menu_launcher(theme)
     -- Wrap the launcher in a background container with a red color
     local launcher = wibox.widget {
         {
-            {
-                launcher_button,
-                margins = 1,
-                widget = wibox.container.margin
-            },
+            launcher_button,
             bg = theme.blue_8 .. "40",
             shape = gears.shape.circle,
             widget = wibox.container.background

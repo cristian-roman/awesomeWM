@@ -51,13 +51,13 @@ local function get_clock_widget(theme)
                 base_clock_widget,
                 right = theme.useless_gap * 3,
                 left = theme.useless_gap * 3,
-                top = dpi(10),
-                bottom = dpi(8),
                 widget = wibox.container.margin
             },
             bg = theme.blue_8,
             fg = "#FFFFFF",
-            shape = gears.shape.rounded_bar,
+            shape = function(cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, dpi(4))
+            end,
             widget = wibox.container.background
         },
         top = theme.useless_gap * 1.5,

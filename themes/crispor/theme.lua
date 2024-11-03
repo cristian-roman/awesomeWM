@@ -10,7 +10,7 @@ local set_env_variables = require("themes.scripts.set_env_variables")
 local set_border_theme = require("themes.crispor.border")
 local attach_top_wibar = require("themes.crispor.wibars.top_wibar")
 
-theme.useless_gap = dpi(4)
+theme.useless_gap = dpi(2)
 
 theme.blue_0 = "#011a28"
 theme.blue_1 = "#022c42"

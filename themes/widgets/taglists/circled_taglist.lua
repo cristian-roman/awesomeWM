@@ -40,7 +40,7 @@ local function create_taglist(s, theme)
             widget = wibox.container.background,
             create_callback = function(self, tag, index, tags)
                 if index == 1 then
-                    self:get_children_by_id('margin_role')[1].bottom = dpi(1)
+                    self:get_children_by_id('margin_role')[1].bottom = dpi(2)
                 end
             end,
             update_callback = function(self, tag, index, tags)
@@ -57,7 +57,9 @@ local function create_taglist(s, theme)
                 widget = wibox.container.margin
             },
             bg = theme.blue_8,
-            shape = gears.shape.rounded_bar,
+            shape = function (cr, width, height)
+                gears.shape.rounded_rect(cr, width, height, dpi(4))
+            end,
             widget = wibox.container.background
         },
         top = theme.useless_gap * 1.5,

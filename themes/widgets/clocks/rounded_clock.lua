@@ -53,7 +53,7 @@ local function get_clock_widget(theme)
                 left = theme.useless_gap * 3,
                 widget = wibox.container.margin
             },
-            bg = theme.blue_8,
+            -- bg = theme.blue_8,
             fg = "#FFFFFF",
             shape = function(cr, width, height)
                 gears.shape.rounded_rect(cr, width, height, dpi(4))

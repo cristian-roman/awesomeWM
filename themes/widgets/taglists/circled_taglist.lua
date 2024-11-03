@@ -18,7 +18,12 @@ local function create_taglist(s, theme)
             layout  = wibox.layout.fixed.horizontal,
         },
         style = {
-            shape = gears.shape.circle,
+            shape = function (cr, width, height)
+                local sh = gears.shape.rounded_rect
+                sh = gears.shape.transform(sh):translate(0, 2.5)
+                sh(cr, width, width, dpi(4))
+            end,
+            
             bg_focus = theme.blue_16,
             bg_urgent = theme.pink_8,
         },
@@ -26,14 +31,15 @@ local function create_taglist(s, theme)
             {
                 {
                     id = 'text_role',
-                    forced_width = dpi(22),
-                    forced_height = dpi(22),
+                    forced_width = dpi(25),
+                    forced_height = dpi(25),
                     align = "center",
                     valign = "center",
                     widget = wibox.widget.textbox,
                 },
                 id = 'margin_role',
                 bottom = dpi(3),
+                right = 1.5,
                 widget = wibox.container.margin
             },
             id = 'background_role',
@@ -56,7 +62,7 @@ local function create_taglist(s, theme)
                 right = dpi(15),
                 widget = wibox.container.margin
             },
-            bg = theme.blue_8,
+            bg = theme.blue_2,
             shape = function (cr, width, height)
                 gears.shape.rounded_rect(cr, width, height, dpi(4))
             end,

@@ -12,7 +12,7 @@ local function get_tasklist(s, theme)
         buttons = awful.util.tasklist_buttons,
         style = {
             shape = gears.shape.rounded_rect,
-            bg_focus = theme.blue_8,
+            bg_focus = theme.blue_4,
             shape_border_width = 2,
             shape_border_color = theme.blue_2,
             align = "center"
@@ -29,8 +29,12 @@ local function get_tasklist(s, theme)
                         widget = wibox.container.margin
                     },
                     {
-                        id = "text_rol",
-                        widget = wibox.widget.textbox,
+                        {
+                            id = "text_rol",
+                            widget = wibox.widget.textbox,
+                        },
+                        widget = wibox.container.margin,
+                        top = dpi(2),
                     },
                     layout = wibox.layout.fixed.horizontal
                 },

@@ -4,6 +4,7 @@ local dpi = require("beautiful.xresources").apply_dpi
 
 local get_launcher = require("themes.widgets.menu_launchers.arch_menu_launcher")
 local get_clock = require("themes.widgets.clocks.rounded_clock")
+local get_taglist = require("themes.widgets.taglists.circled_taglist")
 
 local function attach_top_wibar(s, theme)
     s.top_wibar = awful.wibar({
@@ -18,6 +19,7 @@ local function attach_top_wibar(s, theme)
         layout = wibox.layout.align.horizontal,
         {
             layout = wibox.layout.fixed.horizontal,
+            get_taglist(s, theme),
         },
         wibox.container.place(get_clock(theme), "center"),
         {

@@ -13,6 +13,7 @@ local attach_top_wibar = require("themes.crispor.wibars.top_wibar")
 theme.useless_gap = dpi(4)
 
 theme.blue_1 = "#022c42"
+theme.blue_2 = "#4D6F80"
 theme.blue_8 = "#a3c4cf"
 theme.blue_16 = "#0099CC"
 

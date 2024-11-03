@@ -1,9 +1,6 @@
-local normal = "#022c42"
-local focus = "#0099CC"
-
 local function set_border_colors(theme)
-    theme.border_normal = normal or "#022c42"
-    theme.border_focus = theme.blue_16 or focus or "#0099CC"
+    theme.border_normal = theme.blue_1
+    theme.border_focus = theme.blue_16
 end
 
 return set_border_colors

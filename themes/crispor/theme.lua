@@ -6,28 +6,22 @@ local theme = {}
 
 local wallpaper_file = "wall.jpg"
 
-local set_wallpaper = require("themes.scripts.set_wallpaper")
-local set_env_variables = require("themes.scripts.set_env_variables")
-local set_border_theme = require("themes.crispor.border")
-local attach_top_wibar = require("themes.crispor.wibars.top_wibar")
+local set_wallpaper = require("themes.utils.scripts.set_wallpaper")
+local set_env_variables = require("themes.utils.scripts.set_env_variables")
+
+local set_color_palette = require("themes.crispor.styles.color_palette")
+local set_clients_borders_properties = require("themes.crispor.styles.border")
+
+local attach_top_wibar = require("themes.crispor.containers.wibars.top_wibar")
 
 theme.useless_gap = dpi(2)
 
-theme.blue_0 = "#011a28"
-theme.blue_1 = "#022c42"
-theme.blue_2 = "#153D52"
-theme.blue_4 = "#4D6F80"
-theme.blue_8 = "#a3c4cf"
-theme.blue_16 = "#0099CC"
-
-theme.pink_8 = "#f2d4d7"
-
-set_border_theme(theme)
-
 function theme.at_screen_connect(s)
     set_env_variables(theme)
-    
     set_wallpaper(s, theme, wallpaper_file)
+    
+    set_color_palette(theme)
+    set_clients_borders_properties(theme)
     
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 

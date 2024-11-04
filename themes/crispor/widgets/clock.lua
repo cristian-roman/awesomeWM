@@ -3,7 +3,7 @@ local gears = require("gears")
 local dpi = require("beautiful.xresources").apply_dpi
 
 local function get_clock_widget(theme)
-    -- Define separate textclock widgets for time and date
+
     local time_widget = wibox.widget{
         format = "%a, %I:%M:%S %p",
         widget = wibox.widget.textclock,
@@ -22,23 +22,21 @@ local function get_clock_widget(theme)
         widget = wibox.widget.textbox,
     }
 
-    -- Arrange them in a horizontal layout with the separator in between
     local base_clock_widget = wibox.widget{
-        -- Add margin around each element to control spacing
         {
             time_widget,
-            right = dpi(8),  -- Adjust this value to control spacing
+            right = dpi(8),
             widget = wibox.container.margin
         },
         {
             separator,
             left = dpi(8),
-            right = dpi(8),  -- Adjust this value for separator padding
+            right = dpi(8),
             widget = wibox.container.margin
         },
         {
             date_widget,
-            left = dpi(8),  -- Adjust this value to control spacing
+            left = dpi(8),
             widget = wibox.container.margin
         },
         layout = wibox.layout.fixed.horizontal,
@@ -53,7 +51,6 @@ local function get_clock_widget(theme)
                 left = theme.useless_gap * 3,
                 widget = wibox.container.margin
             },
-            -- bg = theme.blue_8,
             fg = "#FFFFFF",
             shape = function(cr, width, height)
                 gears.shape.rounded_rect(cr, width, height, dpi(4))

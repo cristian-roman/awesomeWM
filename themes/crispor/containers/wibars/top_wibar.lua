@@ -2,10 +2,12 @@ local awful = require("awful")
 local wibox = require("wibox")
 local dpi = require("beautiful.xresources").apply_dpi
 
-local get_launcher = require("themes.widgets.menu_launchers.arch_menu_launcher")
-local get_clock = require("themes.widgets.clocks.rounded_clock")
-local get_taglist = require("themes.widgets.taglists.circled_taglist")
-local get_tasklist = require("themes.widgets.tasklists.focused_tasklist")
+local get_focused_tasklist = require("themes.crispor.containers.tasklists.focused_tasklist")
+local get_taglist = require("themes.crispor.containers.taglist")
+
+local get_launcher = require("themes.crispor.widgets.arch_menu_launcher")
+local get_clock = require("themes.crispor.widgets.clock")
+
 
 local function attach_top_wibar(s, theme)
     s.top_wibar = awful.wibar({
@@ -20,7 +22,7 @@ local function attach_top_wibar(s, theme)
         layout = wibox.layout.flex.horizontal,
         {
             layout = wibox.layout.fixed.horizontal,
-            get_tasklist(s, theme)
+            get_focused_tasklist(s, theme)
         },
         wibox.container.place(get_clock(theme), "center"),
         {

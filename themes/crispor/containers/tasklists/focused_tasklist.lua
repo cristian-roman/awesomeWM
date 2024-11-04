@@ -35,6 +35,7 @@ local function get_tasklist(s, theme)
                         },
                         widget = wibox.container.margin,
                         top = dpi(2),
+                        left = dpi(3),
                     },
                     layout = wibox.layout.fixed.horizontal
                 },

@@ -6,6 +6,7 @@ local theme = {}
 
 local wallpaper_file = "wall.jpg"
 
+local set_wallpaper = require("themes.scripts.set_wallpaper")
 local set_env_variables = require("themes.scripts.set_env_variables")
 local set_border_theme = require("themes.crispor.border")
 local attach_top_wibar = require("themes.crispor.wibars.top_wibar")
@@ -25,10 +26,8 @@ set_border_theme(theme)
 
 function theme.at_screen_connect(s)
     set_env_variables(theme)
-    local wallpaper = theme.walls_dir .. "/" .. wallpaper_file
     
-    local set_wallpaper = require("themes.scripts.set_wallpaper")
-    set_wallpaper(s, theme)
+    set_wallpaper(s, theme, wallpaper_file)
     
     awful.tag(awful.util.tagnames, s, awful.layout.layouts[1])
 
